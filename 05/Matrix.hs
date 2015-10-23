@@ -96,3 +96,47 @@ nub' xs = nub'' $ sort xs
   where
     nub'' [] = []
     nub'' (x:xs) = x:(nub'' $ dropWhile (== x) xs)
+
+--
+-- Exercise F
+--
+
+takeWhile' :: (a -> Bool) -> [a] -> [a]
+takeWhile' _ [] = []
+takeWhile' p (x:xs)
+  | p x = x:takeWhile' p xs
+  | otherwise = []
+
+dropWhile' :: (a -> Bool) -> [a] -> [a]
+dropWhile' _ [] = []
+dropWhile' p (x:xs)
+  | p x = dropWhile' p xs
+  | otherwise = x:xs
+
+whiteSpace :: Char -> Bool
+whiteSpace ' ' = True
+whiteSpace '\t' = True
+whiteSpace _ = False
+
+type Word = String
+
+words' :: String -> [Matrix.Word]
+words' [] = []
+words' xs = word : words' rest
+  where
+    dropped = dropWhile whiteSpace xs
+    word = takeWhile (not . whiteSpace) dropped
+    rest = dropWhile (not . whiteSpace) dropped
+
+--
+-- Exercise G
+--
+
+minimum :: Ord a => [a] -> a
+minimum = head . sort
+
+--
+-- Exercise H
+--
+
+-- So that we prune as soon as possible in all casesö
