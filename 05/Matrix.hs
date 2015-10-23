@@ -88,19 +88,11 @@ nodups xs = and $ zipWith (/=) ys (tail ys)
 --
 
 nub :: (Eq a) => [a] -> [a]
-nub xs = reverse $ gather [] xs
-  where
-    gather :: (Eq a) => [a] -> [a] -> [a]
-    gather xs [] = xs
-    gather xs (y:ys)
-      | y `elem` xs = gather xs ys
-      | otherwise = gather (y:xs) ys
+nub [] = []
+nub (x:xs) = x:(nub $ filter (/= x) xs)
 
 nub' :: (Ord a) => [a] -> [a]
 nub' xs = nub'' $ sort xs
   where
     nub'' [] = []
-    nub'' [x] = [x]
-    nub'' (x:y:xs)
-      | x == y = x:nub'' xs
-      | otherwise = x:y:nub'' xs
+    nub'' (x:xs) = x:(nub'' $ dropWhile (== x) xs)
