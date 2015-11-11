@@ -139,4 +139,4 @@ minimum = head . sort
 -- Exercise H
 --
 
--- So that we prune as soon as possible in all casesö
+-- So that we prune as soon as possible in all cases
